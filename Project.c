@@ -7,5 +7,5 @@
 #include <stdbool.h>
 int main()
 {
-
+    printf("Welcome\nPlayer1 choose X or 0");
 }
