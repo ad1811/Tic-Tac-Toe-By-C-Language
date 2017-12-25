@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h>
 #include<math.h>
 #include<string.h>
 void print(char arr[])
@@ -15,8 +16,10 @@ void player2move()
 {
     printf("Player2 choose your location by pressing the location number for your move\n\n");
 }
-int check2(char arr[],int loc, char player1,char player2)
+int check2(char arr[], char player1,char player2)
 {
+    int loc;
+    scanf("%d",&loc);
     if(arr[loc-1]==player1||arr[loc-1]==player2)
     {
         printf("that place is already filled please try another location\n\n");
@@ -28,8 +31,10 @@ int check2(char arr[],int loc, char player1,char player2)
     }
     return 0;
 }
-int check1(char arr[],int loc,char player1,char player2)
+int check1(char arr[],char player1,char player2)
 {
+    int loc;
+    scanf("%d",&loc);
     if(arr[loc-1]==player1||arr[loc-1]==player2)
     {
         printf("that place is already filled please try another location\n\n");
@@ -42,11 +47,48 @@ int check1(char arr[],int loc,char player1,char player2)
     }
 return 0;
 }
+void repeat2(char arr[],char player1,char player2)
+{
+    int i,index=1;
+
+    for(i=0;index==1;i++){
+           index = check2(arr,player1,player2);}
+}
+void repeat1(char arr[],char player1,char player2)
+{
+    int i,index=1;
+
+    for(i=0;index==1;i++){
+           index = check1(arr,player1,player2);}
+}
+void checkwin1(char arr[],char player1,char player2)
+{
+    if ((arr[0]==player1&&arr[1]==player1&&arr[2]==player1)||(arr[0]==player1&&arr[3]==player1&&arr[6]==player1)||
+        (arr[0]==player1&&arr[4]==player1&&arr[8]==player1)||(arr[1]==player1&&arr[4]==player1&&arr[7]==player1)||
+        (arr[2]==player1&&arr[5]==player1&&arr[8]==player1)||(arr[2]==player1&&arr[4]==player1&&arr[6]==player1)||
+        (arr[3]==player1&&arr[4]==player1&&arr[5]==player1)||(arr[6]==player1&&arr[7]==player1&&arr[8]==player1))
+    {
+        printf("*******Congratulations Player1 you have won the game*******\n\n");
+        exit(1);
+    }
+}
+void checkwin2(char arr[],char player1,char player2)
+{
+    if ((arr[0]==player2&&arr[1]==player2&&arr[2]==player2)||(arr[0]==player2&&arr[3]==player2&&arr[6]==player2)||
+        (arr[0]==player2&&arr[4]==player2&&arr[8]==player2)||(arr[1]==player2&&arr[4]==player2&&arr[7]==player2)||
+        (arr[2]==player2&&arr[5]==player2&&arr[8]==player2)||(arr[2]==player2&&arr[4]==player2&&arr[6]==player2)||
+        (arr[3]==player2&&arr[4]==player2&&arr[5]==player2)||(arr[6]==player2&&arr[7]==player2&&arr[8]==player2))
+    {
+        printf("*******Congratulations Player2 you have won the game*******\n\n");
+        exit(1);
+    }
+}
+
 int main()
 {
     printf("Player1 press x to choose X or o to choose O\n");
     char player1,player2;
-    int loc,index;
+    int index=1,i;
     scanf("%c",&player1);
     if (player1=='x' || player1=='X')
     {
@@ -63,30 +105,37 @@ int main()
     char arr[9] = {'1','2','3','4','5','6','7','8','9'};
     print(arr);
            player1move();
-           scanf("%d",&loc);
-           check1(arr,loc,player1,player2);
+           check1(arr,player1,player2);
            print(arr);
            player2move();
-           scanf("%d",&loc);
-           index = check2(arr,loc,player1,player2);
+           repeat2(arr,player1,player2);
            print(arr);
            player1move();
-           scanf("%d",&loc);
-           check1(arr,loc,player1,player2);
+           repeat1(arr,player1,player2);
            print(arr);
            player2move();
-           scanf("%d",&loc);
-           check2(arr,loc,player1,player2);
+           repeat2(arr,player1,player2);
            print(arr);
            player1move();
-           scanf("%d",&loc);
-           check1(arr,loc,player1,player2);
+           repeat1(arr,player1,player2);
            print(arr);
-
-
-
-
-
-
-
+           checkwin1(arr,player1,player2);
+           player2move();
+           repeat2(arr,player1,player2);
+           print(arr);
+           checkwin2(arr,player1,player2);
+           player1move();
+           repeat1(arr,player1,player2);
+           print(arr);
+           checkwin1(arr,player1,player2);
+           player2move();
+           repeat2(arr,player1,player2);
+           print(arr);
+           checkwin2(arr,player1,player2);
+           player1move();
+           repeat1(arr,player1,player2);
+           print(arr);
+           checkwin1(arr,player1,player2);
+           printf("*******Well Played but the game is Drawn*******\n\n");
+           return 0;
 }
